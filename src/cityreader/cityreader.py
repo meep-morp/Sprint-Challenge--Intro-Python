@@ -9,7 +9,8 @@ import csv
 # to read this file so that each record is imported into a City instance. Then
 # return the list with all the City instances from the function.
 # Google "python 3 csv" for references and use your Google-fu for other examples.
-#
+
+
 # Store the instances in the "cities" list, below.
 #
 # Note that the first line of the CSV is header that describes the fields--this
@@ -18,14 +19,15 @@ cities = []
 
 
 def cityreader(cities=[]):
-  # TODO Implement the functionality to read from the 'cities.csv' file
-  # Ensure that the lat and lon values are all floats
-  # For each city record, create a new City instance and add it to the
-  # `cities` list
-    with open('src\cityreader\cities.csv', 'r', newline='') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-        for row in spamreader:
-            cities.append()
+    # TODO Implement the functionality to read from the 'cities.csv' file
+    # Ensure that the lat and lon values are all floats
+    # For each city record, create a new City instance and add it to the
+    # `cities` list
+    with open('src\cityreader\cities.csv', 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for i, row in enumerate(reader):
+            if i != 0:
+                cities.append((row[0], float(row[3]), float(row[4])))
     return cities
 
 
@@ -68,7 +70,7 @@ for c in cities:
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
-  # within will hold the cities that fall within the specified region
+    # within will hold the cities that fall within the specified region
     within = []
 
     # Go through each city and check to see if it falls within
