@@ -18,6 +18,16 @@ import csv
 cities = []
 
 
+class City():
+    def __init__(self, name, lat, lon):
+        self.name = name
+        self.lat = lat
+        self.lon = lon
+
+    def __str__(self):
+        return f"{self.name}, {self.lat}, {self.lon}"
+
+
 def cityreader(cities=[]):
     # TODO Implement the functionality to read from the 'cities.csv' file
     # Ensure that the lat and lon values are all floats
@@ -27,7 +37,7 @@ def cityreader(cities=[]):
         reader = csv.reader(csvfile)
         for i, row in enumerate(reader):
             if i != 0:
-                cities.append((row[0], float(row[3]), float(row[4])))
+                cities.append(City(row[0], float(row[3]), float(row[4])))
     return cities
 
 
@@ -75,5 +85,22 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
 
     # Go through each city and check to see if it falls within
     # the specified coordinates.
+    for c in cities:
+        if (((c.lat >= lat1 and c.lat <= lat2) or
+             (c.lat <= lat1 and c.lat >= lat2)) and
+            ((c.lon >= lon1 and c.lon <= lon2) or
+             (c.lon <= lon1 and c.lon >= lon2))):
+            within.append(c)
 
     return within
+
+# Comment out to run test
+# print("Find cities within set coordinates: \n")
+# print("Seperate with commas please.\n")
+# lat1 = input("Please enter the first latitude point:\n")
+# lon1 = input("\nPlease enter the first longitude point:\n")
+
+# lat2 = input("\nPlease enter the second latitude point:\n")
+# lon2 = input("\nPlease enter the second longitude point:\n")
+
+# print(cityreader_stretch(lat1, lon1, lat2, lon2))
